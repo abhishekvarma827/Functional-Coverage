@@ -1,0 +1,92 @@
+////////////////////////Design Code
+
+module fsm(input clk, input reset, input din, output reg dout);
+ 
+  reg state, nstate;
+  
+  parameter S0=0, S1=1;
+  
+always @(posedge clk or posedge reset) // always block to update state
+if (reset)
+ state <= S0;
+else
+ state <= nstate;
+  
+  always @(state or din) // always block to compute both output & nextstate
+begin
+ dout = 1'b0;
+ case(state)
+   S0: if(din)
+ begin
+ dout = 1; nstate = S1;
+ end
+ else
+ nstate = S0;
+   S1: if(din)
+ nstate = S0;
+ else
+ begin
+ dout = 1; nstate = S1;
+ end
+ default:
+ nstate = S0;
+ endcase
+end
+endmodule 
+
+
+///////////////Testbench Code
+
+
+
+
+
+module tb;
+  
+ reg clk = 0;
+  reg reset = 0;
+  reg din = 0;
+  wire dout;
+  
+  covergroup c ;
+    option.per_instance = 1;
+    coverpoint dut.state;
+  endgroup
+  
+  fsm dut (clk,reset,din, dout);
+  
+  always #5 clk = ~clk;
+  
+  initial begin
+    reset = 1;
+    #30;
+    reset = 0;
+    #40;
+    din = 1;
+  end
+  c cia;
+  initial begin
+    cia = new();
+    forever begin
+      @(posedge clk);
+      cia.sample();
+    end
+    
+  end
+  
+ initial begin
+    $dumpfile("dump.vcd"); 
+    $dumpvars;
+    #200;
+    $finish();
+  end
+
+
+////////////run.do
+
+asim -acdb +access+r;
+run -all;
+acdb save;
+acdb report -db work.acdb -txt -o cov.txt;
+exec cat cov.txt;
+exit
