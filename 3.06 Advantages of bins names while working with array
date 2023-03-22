@@ -1,0 +1,41 @@
+module tb;
+  reg [1:0] sel;
+  reg [3:0] mode;
+ 
+  
+ 
+  integer i = 0;
+  
+  
+  initial begin
+    #100;
+    $finish();    
+  end
+  
+  covergroup c;
+    option.per_instance = 1;
+    
+    coverpoint sel {
+      bins sel[] = {[0:3]};
+    }
+    
+    coverpoint mode {
+      bins mode[] = {[0:15]};
+    }
+    
+    
+    
+  endgroup
+  
+  
+  
+  initial begin
+    c ci = new();
+    for(i = 0; i < 20; i++) begin 
+      sel = $urandom();
+      mode = $urandom();
+      ci.sample();
+    end 
+  end
+ 
+endmodule
