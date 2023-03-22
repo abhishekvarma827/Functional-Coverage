@@ -15,7 +15,8 @@ module tb;
    
    option.per_instance = 1;
    coverpoint a {
-     bins aV[4] = {[0:8],0,1,2};  
+   //bins aV[] = {[0:10]};
+   bins aV[4] = {[0:8],0,1,2};  
      
      //b1  - 0 1 2
      //b2  - 3 4 5
