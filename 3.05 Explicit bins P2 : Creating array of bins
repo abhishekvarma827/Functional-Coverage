@@ -1,0 +1,45 @@
+module tb;
+  reg [3:0] a; 
+ 
+  
+ 
+  integer i = 0;
+  
+  
+  initial begin
+    #100;
+    $finish();    
+  end
+  
+ covergroup c;
+   
+   option.per_instance = 1;
+   coverpoint a {
+     bins aV[4] = {[0:8],0,1,2};  
+     
+     //b1  - 0 1 2
+     //b2  - 3 4 5
+     //b3  - 6 7 8
+     //b4  - 0 1 2
+   }
+   
+   
+   
+ endgroup
+ 
+    
+    
+  
+  
+  
+  
+  
+  initial begin
+    c ci = new();
+    for(i = 0; i < 10; i++) begin 
+      a = $urandom();
+      ci.sample();
+    end 
+  end
+ 
+endmodule
