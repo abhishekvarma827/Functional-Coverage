@@ -1,0 +1,46 @@
+Create a stimulus for 100 % coverage of signal y. Create two explicit bins, one working with all the possible values of a (00,01,10,11) when sel is high 
+and the other working with all the possible values of b when sel is low.
+Do not Use Cross Coverage, Prefer Wildcard bins.
+
+
+//////////Design Code
+
+module mux_2 (
+  input [1:0] a,b,
+  input sel,
+  output reg [1:0] y 
+);
+  
+always_comb
+  begin
+    if(sel) 
+      y = a;
+    else
+      y = b;
+  end
+  
+  endmodule
+  
+  
+  Create a stimulus for 100 % coverage of signal eout (output of the Priority Encoder) for all the possible combinations of the pin 
+  (Input to the Priority Encoder). Prefer Wildcard bins.
+  
+  /////////////////////Design Code
+
+module p_enc (
+  input [4:0] pin, ////datain
+  output reg [1:0] eout  ///encoded value
+);
+  
+always_comb
+  begin
+    casez(pin)
+      4'b0001: eout = 00;
+      4'b001?: eout = 01;
+      4'b01??: eout = 10;
+      4'b1???: eout = 11;
+      default: eout = 00;
+    endcase
+  end
+  
+  endmodule
