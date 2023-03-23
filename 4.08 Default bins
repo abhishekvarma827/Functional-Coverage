@@ -23,7 +23,8 @@ module tb;
     
     
     for (i = 0; i <50; i++) begin
-      a = $urandom_range(0,8);
+    //  a = $urandom;
+    a = $urandom_range(0,8);
       ci.sample();
       #10;
     end
