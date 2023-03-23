@@ -1,6 +1,6 @@
 module tb;
    
-  reg [3:0] dout=0;
+  reg [3:0] dout=0;   //Serving as an address sending address to one of the slave device we have connected.
   reg en = 0;
   integer i = 0;
   
