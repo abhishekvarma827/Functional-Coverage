@@ -8,7 +8,10 @@ module tb;
    option.per_instance = 1;
    
    coverpoint a {
-     wildcard bins def_a = {4'b00zz};
+   
+  //   wildcard bins def_a = {4'b00??};    // 0000,0001,0010,0011
+ //    wildcard bins def_a = {4'b00xx};   
+       wildcard bins def_a = {4'b00zz};
    
    
    }  
