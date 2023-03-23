@@ -1,0 +1,146 @@
+/////////////////////////Design Code
+
+module fsm(input clk,din,rst,
+             output reg dout
+            );
+ 
+  reg  state = 0,next_state = 0;
+  parameter s0 = 0, s1 = 1;
+  
+  
+  always@(posedge clk)
+    begin
+      if(rst)
+        state <= s0;
+      else
+        state <= next_state;     
+    end
+  
+always@(state,din)
+begin
+  case(state)
+   s0: begin 
+      dout = 1'b0;
+     if(din == 1'b1)
+       next_state = s1;
+     else
+       next_state = s0;
+  end
+    
+  s1: begin  
+    if(din == 1'b1)begin
+       next_state = s0;
+       dout = 1'b1;
+    end
+     else begin
+       next_state = s1;
+       dout = 1'b0;
+     end
+  end
+default: begin 
+  next_state <= s0;
+  dout <= 1'b0;
+end
+endcase
+end  
+ 
+    
+endmodule
+
+
+/////////////////////////////Testbench Code
+
+
+
+module tb();
+ 
+reg clk = 0, din = 0, rst = 0;
+wire dout;
+ 
+fsm dut (clk,din,rst,dout);
+ 
+always #5 clk = ~clk;
+ 
+ 
+ 
+ 
+initial begin
+  repeat(4) @(posedge clk) {rst,din} = 2'b10;
+  repeat(4) @(posedge clk) {rst,din} = 2'b01;
+  repeat(4) @(posedge clk) {rst,din} = 2'b10;
+  repeat(1) @(posedge clk) {rst,din} = 2'b01;
+  repeat(4) @(posedge clk) {rst,din} = 2'b00;
+end
+ 
+  covergroup c @(posedge clk);
+  option.per_instance = 1;
+    
+    coverpoint rst {
+      bins rst_l = {0};
+      bins rst_h = {1};
+    }
+    
+    coverpoint din {
+      bins din_h = {1};
+    }
+    
+     coverpoint dout {
+      bins dout_l = {0};
+      bins dout_h = {1};
+    }
+ 
+    coverpoint dut.state {
+      
+      bins trans_s0_S1 = (dut.s0 => dut.s1);
+      
+      bins trans_s1_S0 = (dut.s1 => dut.s0);
+      
+    
+    
+    }
+    
+    cross din,dut.state;
+    
+  endgroup
+ 
+  
+  covergroup c2 @(posedge clk);
+      option.per_instance = 1;
+    
+       coverpoint din {
+      bins din_l = {0};
+    }
+    
+      coverpoint dut.state {
+         
+      bins trans_s0_S0 = (dut.s0 => dut.s0);      
+      bins trans_s1_S1 = (dut.s1 => dut.s1);   
+    
+    }
+    
+    cross din,dut.state;
+    
+  endgroup
+ 
+ 
+  c ci;
+  c2 ci2;
+ 
+  
+  
+  
+  
+  initial begin
+    ci = new();
+    ci2 = new();
+    $dumpfile("dump.vcd"); 
+    $dumpvars;
+    #500;
+    $finish();
+  end
+  
+ 
+ 
+ 
+ 
+endmodule
