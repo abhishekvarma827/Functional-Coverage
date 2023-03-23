@@ -1,0 +1,96 @@
+/////////////////////Design Code
+
+
+
+module top(
+  input [1:0] a,b,c,
+  output reg [3:0] y
+ 
+);
+ 
+ /*
+ User Logic here
+ Do not add anything
+ ...................
+ ..................
+ ..................
+ ...............
+ */
+  
+endmodule
+Questions for this assignment
+Generate stimulus to get 100% coverage for the following Scenarios
+
+1) Cover all the possible combinations of a,b and c
+
+2) Cover cross of a( 00, 01 ) with all the values of b.
+
+3) Cover cross of b(11) with all the possible values of c.
+
+4) Cover cross of a (10), b(10), and c(10)
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////Design Code
+
+module top (
+  input [2:0] a, b,
+  input rst,
+  input feed,
+  output [2:0] y,
+  output done
+);
+  
+/*
+ 
+User Logic here
+Do not add anything
+..............
+............
+...........
+.........
+.......
+ 
+*/
+  
+  endmodule
+Questions for this assignment
+Generate stimulus to get 100% coverage for the following Scenarios
+
+1) Cover all the possible combinations of a,b
+
+2) Cover rst.
+
+3) Cover cross between rst (low) and a.
+
+4) Cover cross between rst (low) and b.
+
+5) Cover cross between a (00,11) and b(00,11) when rst is low.
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+module top(
+  input [1:0] a,b,c,
+  output reg [3:0] y
+ 
+);
+ 
+ /*
+ User Logic here
+ Do not add anything
+ 
+ 
+ */
+  
+endmodule
+Questions for this assignment
+Generate stimulus to get 100% coverage for the following Scenarios
+
+1) Cover all the possible combinations of a,b,c
+
+2) Cover cross between a and even values of b
+
+3) Cover cross between a and odd values of c
+
+4) Cover cross between even values of b and odd  values of c
