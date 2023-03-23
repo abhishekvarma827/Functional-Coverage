@@ -12,6 +12,8 @@ module tb;
     coverpoint b {
       bins zero = {0};
       bins bdiv5[] = {[1:100]} with (item % 5 == 0) ;    
+      //bins odd[] = {[0:6]} with ((item % 2 != 0) && (item > 0) );
+      //bins even[] = {[0:6]} with ((item % 2 == 0) && (item > 0));
     }
     
  
