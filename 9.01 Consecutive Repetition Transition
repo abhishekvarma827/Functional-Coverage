@@ -2,6 +2,7 @@ module tb();
  
 reg clk = 0;
   
+  //  reg data[] = {1,1,1,1,0};  
   reg data[] = {1,1,1,1};   
   reg state = 0;
    integer i = 0;
