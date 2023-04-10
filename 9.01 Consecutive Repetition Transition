@@ -27,6 +27,7 @@ always #5 clk = ~clk;
   covergroup c @(posedge clk);
     option.per_instance = 1;
     coverpoint state {
+   // bins trans_0_1 = (1[*2 //4])
       bins trans_0_1 = (0 => 1[*4]);
     }
     
